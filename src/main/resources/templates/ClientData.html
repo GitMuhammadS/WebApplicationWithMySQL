@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.og">
+<head>
+<meta charset="UTF-8">
+<title>ClientData</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<style type="text/css">
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+<link rel="icon" type="image/x-icon" href="/images/elitePic.jpg">
+</head>
+<body>
+	<div class="row">
+	<div class="col-7">
+		<a th:href="@{/client/priority}" class="btn btn-secondary" target="_blank" ><b>PRIORITY CHART</b></a>
+		<a th:href="@{/client/type}" class="btn btn-secondary" target="_blank"><b>TYPE CHART</b></a>
+		<a th:href="@{/client/nature}" class="btn btn-secondary" target="_blank"><b>NATURE CHART</b></a>
+		<a th:href="@{/client/excel}" class="btn btn-secondary" target="_blank"><b>EXCEL EXPORT</b></a>
+		<a th:href="@{/client/register}" class="btn btn-secondary"><b>ADD CLIENT</b></a>
+		<a th:href="@{/client/home}" class="btn btn-secondary"><b>HOME</b></a>
+	</div>
+	<div class="col-5">
+		<form action="all" method="GET">
+			<div class="row">
+				<span class="col-5">
+				
+					<input type="text" name="clientName" placeholder="Search by Client Name" class="form-control mb-2 mr-sm-2"/>
+				</span>
+				<span class="col-3">
+				
+					<input type="submit" value="SEARCH" class="btn btn-secondary"/>
+					 
+				</span>
+				<div class="col-2">
+					<h4 class="text-secondary">Records:</h4>
+				</div>
+				<div class="col-2">
+					<h4 th:text="${count}" class="text-secondary"></h4>
+				</div>
+			</div>
+		</form>
+	</div>
+	</div>
+		<h1 style="text-align:center;" class="border bg-secondary text-white">CLIENTS OF ELITE SERVICES</h1>
+	<div class="">
+		<div class="">
+			<!-- <div class="card-header bg-success text-white text-center">
+				<h3>Client Data Page</h3>
+			</div> -->
+			<div class="card-body">
+				<table class="" id="myTable">
+				
+					<tr class="bg-secondary text-white">
+						<th>SL</th>
+						<th>CLIENT</th>
+		     			<th>ORDER NO</th>
+		     			<th>ADDRESS</th>
+			 			<th>REPORTED BY</th>
+			 			<th>CALL_REPORT_TIME</th>
+		     			<th>INVOICE</th>
+		     			<th>PROBLEM</th>
+		     			<th>PRIORITY</th>
+			 			<th>TYPE</th>
+			 			<th>NATURE</th>
+		     			<th>ATTENDED BY</th>
+		     			<th>CALL_ATTEND_TIME</th>
+		     			<th>STATUS</th>
+			 			<th>OBSERVE</th>
+			 			<th>WORK DONE</th>
+		     			<th>REMARKS</th>
+		     			<th>ACTIONS</th>
+					</tr>
+					<tr th:each="cli:${clientList}">
+						<td th:text="${cli.id}"></td>
+						<td th:text="${cli.clientName}"></td>
+						<td th:text="${cli.workOrderNo}"></td>
+						<td th:text="${cli.address}"></td>
+						<td th:text="${cli.callReportedBy}"></td>
+						<td th:text="${cli.callReportedTime}"></td>
+						<td th:text="${cli.invoiceNo}"></td>
+						<td th:text="${cli.natureOfProblem}"></td>
+						<td th:text="${cli.priorityOfWork}"></td>
+						<td th:text="${cli.typeOfWork}"></td>
+						<td th:text="${cli.natureOfWork}"></td>
+						<td th:text="${cli.callAttendedBy}"></td>
+						<td th:text="${cli.callAttendedTime}"></td>
+						<th th:text="${cli.statusOfWork}" class="statusOfWork"></th>
+						<td th:text="${cli.observation}"></td>
+						<td th:text="${cli.workDone}"></td>
+						<td th:text="${cli.remarks}"></td>
+						
+						<th>
+							<a th:href="@{/client/delete?id={data}(data=${cli.id})}" class="btn btn-danger text-white">DEL</a>
+							<a th:href="@{/client/edit?id={data}(data=${cli.id})}" class="btn btn-warning text-white">EDIT</a>
+							<a  th:href="@{/client/pdf?id={data}(data=${cli.id})}" class="btn btn-success text-white">PDF</a>
+						</th>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="card-footer bg-secondary text-white text-center" th:if="${message}">
+				<span th:text="${message}"></span>
+			</div>
+			<!-- pagination start-->
+				
+				<nav aria-label="Page navigation example">
+  					<ul class="pagination justify-content-center">
+    					<li class="page-item" th:if="${page.hasPrevious()}">
+    						<a class="page-link" th:href="@{/client/all(page=${page.number-1})}">Previous</a>
+    					</li>
+    					<th:block th:each="i,ac:${#numbers.sequence(0,page.totalPages-1)}">
+    						<li th:class="${ac.index==page.number?'page-item active':'page-item'}">
+    							<a class="page-link" th:href="@{/client/all(page=${i})}">[[${i+1}]]</a>
+    						</li>
+    					</th:block>
+    					<li class="page-item" th:if="${page.hasNext()}">
+    						<a class="page-link" th:href="@{/client/all(page=${page.number+1})}">Next</a>
+    					</li>
+  					</ul>
+				</nav>
+			
+			<!-- pagination stops -->
+		</div>
+	</div>
+	<script>
+		$(document).ready(function(){
+			$('#myTable .statusOfWork').each(function(){
+				var status=$(this).text();
+				if(status=='COMPLETED'){
+					$(this).css('background-color','green');
+					$(this).css('color','white');
+				}else if(status=='PROCESSING'){
+					$(this).css('background-color','yellow');
+					$(this).css('color','white');
+				}else{
+					$(this).css('background-color','red');
+					$(this).css('color','white');
+				}
+			});
+		});
+	</script>
+</body>
+</html>

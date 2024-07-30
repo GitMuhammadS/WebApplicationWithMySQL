@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.og/">
+<head>
+<meta charset="UTF-8">
+<title>CustomerServiceReport</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<link rel="icon" type="image/x-icon" href="/images/elitePic.jpg">
+</head>
+<body>
+<br>
+	<div class="container">
+		<div class="card">
+			<div class="card-header bg-success text-white text-center">
+				<h3>CUSTOMER SERVICE REPORT</h3>
+			</div>
+			
+			<div class="card-body">
+				<form th:action="@{/client/save}" id="clientRegisterForm" method="POST" th:object="${client}">
+					<!-- row1 -->
+					<div class="row">
+                        <div class="col-2">
+                            <label><b>Client Name:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" th:field="*{clientName}" id="clientName" class="form-control">
+                        </div>
+                        <div class="col-5">
+                             <span id="clientNameError"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- row2 -->
+					<div class="row">
+                        <div class="col-2">
+                            <label><b>Work Order No:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" th:field="*{workOrderNo}" id="workOrderNo" class="form-control">
+                        </div>
+                        <div class="col-5">
+                             <span id="workOrderNoError"></span>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- row3 -->
+					<div class="row">
+                        <div class="col-2">
+                            <label><b>Address:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <textarea  th:field="*{address}" class="form-control" id="address">
+                            		
+                 			</textarea>
+                        </div>
+                        <div class="col-5">
+                             <span id="addressError"></span>
+                        </div>
+                    </div>
+                    <hr>
+                     <!-- row2 -->
+					<div class="row">
+                        <div class="col-2">
+                            <label><b>Call Reported By:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" th:field="*{callReportedBy}" id="callReportedBy" class="form-control">
+                        </div>
+                        <div class="col-5">
+                             <span id="callReportedByError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-2">
+                            <label><b>Call Reported Time:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="datetime-local" th:field="*{callReportedTime}" id="callReportedTime" class="form-control">
+                        </div>
+                        <div class="col-5">
+                             <span id="callReportedTimeError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-2">
+                            <label><b>Invoice No:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" th:field="*{invoiceNo}" id="invoiceNo" class="form-control">
+                        </div>
+                        <div class="col-5">
+                             <span id="invoiceNoError"></span>
+                        </div>
+                    </div>
+                    
+                     <div class="row">
+                        <div class="col-2">
+                            <label><b>Nature of Problem:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" th:field="*{natureOfProblem}" id="natureOfProblem" class="form-control">
+                        </div>
+                        <div class="col-5">
+                             <span id="natureOfProblemError"></span>
+                        </div>
+                    </div>
+                    <hr>
+                     <div class="row">
+                        <div class="col-2">
+                            <label><b>Priority Of Work:</b></label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" th:field="*{priorityOfWork}" name="priorityOfWork" value="P1-Emergency"><b>P1-Emergency</b>
+                            <input type="radio" th:field="*{priorityOfWork}" name="priorityOfWork" value="P2-Urgent"><b>P2-Urgent</b>
+                            <input type="radio" th:field="*{priorityOfWork}" name="priorityOfWork" value="P3-Scheduled"><b>P3-Scheduled</b>
+                            <input type="radio" th:field="*{priorityOfWork}" name="priorityOfWork" value="P4-Routine"><b>P4-Routine</b>
+                        </div>
+                        <div class="col-4">
+                             <span id="priorityOfWorkError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-2">
+                            <label><b>Types Of Work:</b></label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" th:field="*{typeOfWork}" name="typeOfWork" value="AC"><b>AC</b>
+                            <input type="radio" th:field="*{typeOfWork}" name="typeOfWork" value="Electrical"><b>Electrical</b>
+                            <input type="radio" th:field="*{typeOfWork}" name="typeOfWork" value="Plumbing"><b>Plumbing</b>
+                            <input type="radio" th:field="*{typeOfWork}" name="typeOfWork" value="Carpentry"><b>Carpentry</b>
+                            <input type="radio" th:field="*{typeOfWork}" name="typeOfWork" value="Others"><b>Others</b>
+                        </div>
+                        <div class="col-4">
+                             <span id="typeOfWorkError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-2">
+                            <label><b>Nature Of Work:</b></label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" th:field="*{natureOfWork}" name="natureOfWork" value="Repair"><b>Repair</b>
+                            <input type="radio" th:field="*{natureOfWork}" name="natureOfWork" value="Service"><b>Service</b>
+                            <input type="radio" th:field="*{natureOfWork}" name="natureOfWork" value="New Parts"><b>New Parts</b>
+                            <input type="radio" th:field="*{natureOfWork}" name="natureOfWork" value="AMC"><b>AMC</b>
+                        </div>
+                        <div class="col-4">
+                             <span id="natureOfWorkError"></span>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-2">
+                            <label><b>Call Attended By:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" th:field="*{callAttendedBy}" id="callAttendedBy" class="form-control">
+                        </div>
+                        <div class="col-5">
+                             <span id="callAttendedByError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-2">
+                            <label><b>Call Attended Time:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="datetime-local" th:field="*{callAttendedTime}" id="callAttendedTime" class="form-control">
+                        </div>
+                        <div class="col-5">
+                             <span id="callAttendedTimeError"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-2">
+                            <label><b>Status Of Work</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="radio" th:field="*{statusOfWork}" name="statusOfWork" value="PROCESSING"><b>Processing</b><br>
+                            <input type="radio" th:field="*{statusOfWork}" name="statusOfWork" value="PENDING"><b>Pending</b><br>
+                            <input type="radio" th:field="*{statusOfWork}" name="statusOfWork" value="COMPLETED"><b>Completed</b>
+                        </div>
+                        <div class="col-5">
+                             <span id="statusOfWorkError"></span>
+                        </div>
+                    </div>
+           			<hr>
+                    <div class="row">
+                        <div class="col-2">
+                            <label><b>Observation:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" th:field="*{observation}" id="observation" class="form-control">
+                        </div>
+                        <div class="col-5">
+                             <span id="observationError"></span>
+                        </div>
+                    </div>
+                    
+                     <div class="row">
+                        <div class="col-2">
+                            <label><b>Work Done:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" th:field="*{workDone}" id="workDone" class="form-control">
+                        </div>
+                        <div class="col-5">
+                             <span id="workDoneError"></span>
+                        </div>
+                    </div>
+                    
+                     <div class="row">
+                        <div class="col-2">
+                            <label><b>Remarks:</b></label>
+                        </div>
+                        <div class="col-5">
+                            <input type="text" th:field="*{remarks}" id="remarks" class="form-control">
+                        </div>
+                        <div class="col-5">
+                             <span id="remarksError"></span>
+                        </div>
+                    </div>
+                    <br>
+                   <input type="submit" class="btn btn-success text-white" value="ADD TO DATABASE"> 
+				</form>
+			</div>
+			
+			<div class="card-footer bg-success text-center text-white" th:if="${message}">
+				<span th:text="${message}"></span>
+            </div>
+		</div>
+	</div>
+ 	<script>
+		 $(document).ready(function(){
+			$("#clientNameError").hide();
+			$("#workOrderNoError").hide();
+			$("#addressError").hide();
+			$("#callReportedByError").hide();
+			$("#callReportedTimeError").hide();
+			$("#invoiceNoError").hide();
+			$("#natureOfProblemError").hide();
+			$("#priorityOfWorkError").hide();
+			$("#typeOfWorkError").hide();
+			$("#natureOfWorkError").hide();
+			$("#callAttendedByError").hide();
+			$("#callAttendedTimeError").hide();
+			$("#statusOfWorkError").hide();
+			$("#observationError").hide();
+			$("#workDoneError").hide();
+			
+			
+			var clientNameError=false;
+			var workOrderNoError=false;
+			var addressError=false;
+			var callReportedByError=false;
+			var callReportedTimeError=false;
+			var invoiceNoError=false;
+			var natureOfProblemError=false;
+			var priorityOfWorkError=false;
+			var typeOfWorkError=false;
+			var natureOfWorkError=false;
+			var callAttendedByError=false;
+			var callAttendedTimeError=false;
+			var statusOfWorkError=false;
+			var observationError=false;
+			var workDoneError=false;
+			
+			
+			function validate_clientName(){
+				var val=$("#clientName").val();
+				if(val==''){
+					$("#clientNameError").show();
+					$("#clientNameError").html("<b>*ENTER CLIENT NAME</b>");
+					$("#clientNameError").css("color","red");
+					clientNameError=false;
+				}else{
+					$("#clientNameError").hide();
+					clientNameError=true;
+				}
+				return clientNameError;
+			}
+			
+			function validate_workOrderNo(){
+				var val=$("#workOrderNo").val();
+				
+				if(val==''){
+					$("#workOrderNoError").show();
+					$("#workOrderNoError").html("<b>*ENTER WORK ORDER NO</b>");
+					$("#workOrderNoError").css("color","red");
+					workOrderNoError=false;
+				}else{
+					$.ajax({
+						url:'validate',
+						data:{'workOrderNo':val},
+						success:function(message){
+							if(message==''){
+								$("#workOrderNoError").hide();
+								workOrderNoError=true;
+							}else{
+								$("#workOrderNoError").show();
+								$("#workOrderNoError").html(message);
+								$("#workOrderNoError").css("color","red");
+								workOrderNoError=false;
+							}
+						}
+					})
+				}
+				return workOrderNoError;
+			}
+			
+			function validate_address(){
+				var val=$("#address").val();
+				if(val==''){
+					$("#addressError").show();
+					$("#addressError").html("<b>*ENTER ADDRESS</b>");
+					$("#addressError").css("color","red");
+					addressError=false;
+				}else{
+					$("#addressError").hide();
+					addressError=true;
+				}
+				return addressError;
+			}
+			
+			function validate_callReportedBy(){
+				var val=$("#callReportedBy").val();
+				if(val==''){
+					$("#callReportedByError").show();
+					$("#callReportedByError").html("<b>*ENTER CALL REPORTED BY</b>");
+					$("#callReportedByError").css("color","red");
+					callReportedByError=false;
+				}else{
+					$("#callReportedByError").hide();
+					callReportedByError=true;
+				}
+				return callReportedByError;
+			}
+			
+			function validate_callReportedTime(){
+				var val=$("#callReportedTime").val();
+				if(val==''){
+					$("#callReportedTimeError").show();
+					$("#callReportedTimeError").html("<b>*ENTER CALL REPORTED TIME</b>");
+					$("#callReportedTimeError").css("color","red");
+					clientNameError=false;
+				}else{
+					$("#callReportedTimeError").hide();
+					callReportedTimeError=true;
+				}
+				return callReportedTimeError;
+			}
+			
+			function validate_invoiceNo(){
+				var val=$("#invoiceNo").val();
+				if(val==''){
+					$("#invoiceNoError").show();
+					$("#invoiceNoError").html("<b>*ENTER INVOICE NO</b>");
+					$("#invoiceNoError").css("color","red");
+					invoiceNoError=false;
+				}else{
+					$("#invoiceNoError").hide();
+					invoiceNoError=true;
+				}
+				return invoiceNoError;
+			}
+			
+			function validate_natureOfProblem(){
+				var val=$("#natureOfProblem").val();
+				if(val==''){
+					$("#natureOfProblemError").show();
+					$("#natureOfProblemError").html("<b>*ENTER NATURE OF PROBLEM</b>");
+					$("#natureOfProblemError").css("color","red");
+					clientNameError=false;
+				}else{
+					$("#natureOfProblemError").hide();
+					natureOfProblemError=true;
+				}
+				return natureOfProblemError;
+			}
+			
+			function validate_priorityOfWork(){
+				var len=$('[name="priorityOfWork"]:checked').length;
+				if(len==0){
+    				$("#priorityOfWorkError").show();
+    				$("#priorityOfWorkError").html("<b>*PLZ CHOOSE ONE.</b>");
+    				$("#priorityOfWorkError").css("color","red");
+    				priorityOfWorkError=false;
+				}else{
+					$("#priorityOfWorkError").hide();
+					priorityOfWorkError=true;
+				}
+				return priorityOfWorkError;
+			}
+			
+			function validate_typeOfWork(){
+				var len=$('[name="typeOfWork"]:checked').length;
+				if(len==0){
+    				$("#typeOfWorkError").show();
+    				$("#typeOfWorkError").html("<b>*PLZ CHOOSE ONE.</b>");
+    				$("#typeOfWorkError").css("color","red");
+    				typeOfWorkError=false;
+				}else{
+					$("#typeOfWorkError").hide();
+					typeOfWorkError=true;
+				}
+				return typeOfWorkError;
+			}
+			
+			function validate_natureOfWork(){
+				var len=$('[name="natureOfWork"]:checked').length;
+				if(len==0){
+    				$("#natureOfWorkError").show();
+    				$("#natureOfWorkError").html("<b>*PLZ CHOOSE ONE.</b>");
+    				$("#natureOfWorkError").css("color","red");
+    				natureOfWorkError=false;
+				}else{
+					$("#natureOfWorkError").hide();
+					natureOfWorkError=true;
+				}
+				return natureOfWorkError;
+			}
+			
+			function validate_callAttendedBy(){
+				var val=$("#callAttendedBy").val();
+				if(val==''){
+					$("#callAttendedByError").show();
+					$("#callAttendedByError").html("<b>*ENTER CALL ATTENDED BY</b>");
+					$("#callAttendedByError").css("color","red");
+					callAttendedByError=false;
+				}else{
+					$("#callAttendedByError").hide();
+					callAttendedByError=true;
+				}
+				return callAttendedByError;
+			}
+			
+			function validate_callAttendedTime(){
+				var val=$("#callAttendedTime").val();
+				if(val==''){
+					$("#callAttendedTimeError").show();
+					$("#callAttendedTimeError").html("<b>*ENTER CALL ATTENDED TIME</b>");
+					$("#callAttendedTimeError").css("color","red");
+					callAttendedTimeError=false;
+				}else{
+					$("#callAttendedTimeError").hide();
+					callAttendedTimeError=true;
+				}
+				return callAttendedTimeError;
+			}
+			
+			function validate_statusOfWork(){
+				var len=$('[name="statusOfWork"]:checked').length;
+				if(len==0){
+					$("#statusOfWorkError").show();
+					$("#statusOfWorkError").html("<b>*PLZ CHOOSE ONE</b>");
+					$("#statusOfWorkError").css("color","red");
+					statusOfWorkError=false;
+				}else{
+					$("#statusOfWorkError").hide();
+					statusOfWorkError=true;
+				}
+				return statusOfWorkError;
+			}
+			
+			function validate_observation(){
+				var val=$("#clientName").val();
+				if(val==''){
+					$("#observationError").show();
+					$("#observationError").html("<b>*ENTER OBSERVATION</b>");
+					$("#observationError").css("color","red");
+					observationError=false;
+				}else{
+					$("#observationError").hide();
+					observationError=true;
+				}
+				return observationError;
+			}
+			
+			function validate_workDone(){
+				var val=$("#workDone").val();
+				if(val==''){
+					$("#workDoneError").show();
+					$("#workDoneError").html("<b>*ENTER WORK DONE</b>");
+					$("#workDoneError").css("color","red");
+					clientNameError=false;
+				}else{
+					$("#workDoneError").hide();
+					workDoneError=true;
+				}
+				return workDoneError;
+			}
+			
+			function validate_remarks(){
+				var val=$("#remarks").val();
+				if(val==''){
+					$("#remarksError").show();
+					$("#remarksError").html("<b>*ENTER REMARKS</b>");
+					$("#remarksError").css("color","red");
+					remarksError=false;
+				}else{
+					$("#remarksError").hide();
+					remarksError=true;
+				}
+				return remarksError;
+			}
+			
+			
+			
+
+			$("#clientName").keyup(function(){
+				validate_clientName();
+			});
+			
+			$("#workOrderNo").keyup(function(){
+				validate_workOrderNo();
+			});
+			
+			$("#address").keyup(function(){
+				validate_address();
+			});
+			
+			$("#callReportedBy").keyup(function(){
+				validate_callReportedBy();
+			});
+			
+			$("#callReportedTime").keyup(function(){
+				validate_callReportedTime();
+			});
+			
+			$("#invoiceNo").keyup(function(){
+				validate_invoiceNo();
+			});
+			
+			$("#natureOfProblem").keyup(function(){
+				validate_natureOfProblem();
+			});
+			
+			$('[name="priorityOfWork"]').click(function(){
+				validate_priorityOfWork();
+			});
+			
+			$('[name="typeOfWork"]').click(function(){
+				validate_typeOfWork();
+			});
+			
+			$('[name="natureOfWork"]').click(function(){
+				validate_natureOfWork();
+			});
+			
+			$("#callAttendedBy").keyup(function(){
+				validate_callAttendedBy();
+			});
+			
+			$("#callAttendedTime").keyup(function(){
+				validate_callAttendedTime();
+			});
+			
+			$('[name="statusOfWork"]').click(function(){
+				validate_statusOfWork();
+			});
+			
+			$("#observation").keyup(function(){
+				validate_observation();
+			});
+			
+			$("#workDone").keyup(function(){
+				validate_workDone();
+			});
+			
+			$("#remarks").keyup(function(){
+				validate_remarks();
+			});
+			
+			
+			$("#clientRegisterForm").submit(function(){
+				
+				validate_clientName();
+				validate_workOrderNo();
+				validate_address();
+				validate_callReportedBy();
+				validate_callReportedTime();
+				validate_invoiceNo();
+				validate_natureOfProblem();
+				validate_priorityOfWork();
+				validate_typeOfWork();
+				validate_natureOfWork();
+				validate_callAttendedBy();
+				validate_callAttendedTime();
+				validate_statusOfWork();
+				validate_observation();
+				validate_workDone();
+				validate_remarks();
+				
+				
+				
+				if(clientNameError && workOrderNoError
+						&& addressError && callReportedByError 
+						&& callReportedTimeError && invoiceNoError && natureOfProblemError && priorityOfWorkError
+						&& typeOfWorkError && natureOfWorkError && callAttendedByError && callAttendedTimeError && statusOfWorkError && observationError && workDoneError && remarksError)
+					return true;
+				else
+					return false;
+			})
+			
+		});
+	</script>
+</body>
+</html>
